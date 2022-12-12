@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bloggingapp.demo.entites.User;
-import com.bloggingapp.demo.exception.UserNotFoundException;
+import com.bloggingapp.demo.exception.ResourceNotFoundException;
 import com.bloggingapp.demo.repositery.UserRepo;
 import com.bloggingapp.demo.service.UserService;
 @Service
@@ -22,14 +22,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User updateUser(User user, Integer userId) {
+	public User updateUser(User user) {
 		
-		Optional<User> updatedUser =userRepo.findById(userId);
+		Optional<User> updatedUser =userRepo.findById(user.getId());
 		
 		if(updatedUser.isPresent()) {
 			return userRepo.save(user);
 		}else {
-		    throw new UserNotFoundException("user not found with id "+ userId);
+		    throw new ResourceNotFoundException("user not found with id "+ user.getId());
 		}
 		
 	}
@@ -38,13 +38,13 @@ public class UserServiceImpl implements UserService{
 	public User getUserById(Integer userId) {
 	    
 		return userRepo.findById(userId)
-				.orElseThrow(()-> new UserNotFoundException("user not found with id " + userId));
+				.orElseThrow(()-> new ResourceNotFoundException("user not found with id " + userId));
 	}
 
 	@Override
 	public User deleteUserById(Integer userId) {
 		
-		User user = userRepo.findById(userId).orElseThrow(()-> new UserNotFoundException("User not found with id "+ userId));
+		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User not found with id "+ userId));
 		
 		userRepo.delete(user);
 		

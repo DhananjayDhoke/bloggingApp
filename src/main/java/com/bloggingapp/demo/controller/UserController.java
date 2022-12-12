@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bloggingapp.demo.entites.User;
 import com.bloggingapp.demo.service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -42,17 +44,17 @@ public class UserController {
 	}
 	
 	@PostMapping("/creatuser")
-	public ResponseEntity<User> createUserHandler(@RequestBody User user){
+	public ResponseEntity<User> createUserHandler(@Valid @RequestBody User user){
 		
 		User createdUser = userService.createUser(user);
 		
 		return new ResponseEntity<>(createdUser,HttpStatus.OK);
 	}
 	
-	@PutMapping("/updateuser/{userId}")
-	public ResponseEntity<User> updateUserByIdHandler(@RequestBody User user,@PathVariable Integer userId) {
+	@PutMapping("/updateuser")
+	public ResponseEntity<User> updateUserByIdHandler(@Valid @RequestBody User user) {
 		
-		User updateUser = userService.updateUser(user, userId);
+		User updateUser = userService.updateUser(user);
 		
 		return new ResponseEntity<>(updateUser,HttpStatus.OK);
 	}
