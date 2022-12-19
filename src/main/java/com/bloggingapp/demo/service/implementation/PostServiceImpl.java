@@ -60,21 +60,23 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public List<Post> getPostById(Integer postId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Post getPostById(Integer postId) {
+		return postRepo.findById(postId).orElseThrow(()->new ResourceNotFoundException("Post not found with id "+postId));
 	}
 
 	@Override
 	public List<Post> getPostByUserId(Integer userId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		User user = userRepo.findById(userId).orElseThrow(()->new ResourceNotFoundException("post not found with userid "+ userId));
+		return postRepo.findByUser(user);
 	}
 
 	@Override
 	public List<Post> getPostByCategoryId(Integer categoryId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Category cat = categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("post not found with cat id "+categoryId));
+		
+		return postRepo.findByCategory(cat);
 	}
 
 }
