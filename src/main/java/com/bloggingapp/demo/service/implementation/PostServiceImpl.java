@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bloggingapp.demo.entites.Category;
@@ -42,8 +45,11 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Post updatePost(Post post, Integer postId) {
-		 postRepo.findById(postId).orElseThrow(()->new ResourceNotFoundException("post not found with id "+postId));
-		return postRepo.save(post);
+		Post updatepost = postRepo.findById(postId).orElseThrow(()->new ResourceNotFoundException("post not found with id "+postId));
+		  updatepost.setTitle(post.getTitle());
+		  updatepost.setContent(post.getContent());
+		  
+		  return postRepo.save(updatepost);
 	}
 
 	@Override
@@ -55,8 +61,14 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public List<Post> getAllPost() {
-	 return postRepo.findAll();
+	public List<Post> getAllPost(Integer pageNumber,Integer pageSize) {
+	 
+		Pageable p = PageRequest.of(pageNumber, pageSize);
+	    
+		Page<Post>  pagePost = postRepo.findAll(p);
+		List<Post> content=pagePost.getContent();
+		
+		return content;
 	}
 
 	@Override

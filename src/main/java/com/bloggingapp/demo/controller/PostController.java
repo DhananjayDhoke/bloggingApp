@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bloggingapp.demo.entites.Post;
@@ -24,7 +27,7 @@ public class PostController {
 	private PostService postService;
 
 	// create post
-	@PostMapping("/{userId}/category/{categoryId}")
+	@PostMapping("user/{userId}/category/{categoryId}")
 	public ResponseEntity<Post> postdata (@RequestBody Post post,@PathVariable Integer userId,@PathVariable Integer categoryId){
 
 		Post postByUser = postService.createPost(post, userId, categoryId);
@@ -54,7 +57,7 @@ public class PostController {
 	}
 
 	// get single post by id
-	@GetMapping("/{userId}")
+	@GetMapping("/{postId}")
 
 	public ResponseEntity<Post> getSinglePostById (@PathVariable Integer postId){
 
@@ -66,19 +69,33 @@ public class PostController {
 	// get all post
 	@GetMapping("/getallpost")
 
-	public ResponseEntity<List<Post>> getAllPostById (){
+	public ResponseEntity<List<Post>> getAllPostById (
+			@RequestParam(value = "pageNumber",defaultValue = "1",required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize",defaultValue ="5",required = false) Integer pageSize
+			){
 
-		List<Post> allPost = postService.getAllPost();
+		List<Post> allPost = postService.getAllPost(pageNumber, pageSize);
 
 		return new ResponseEntity<>(allPost,HttpStatus.OK);
 	}
 	
 	// get all post
-		@GetMapping("/delete/{postId}")
+		@DeleteMapping("/delete/{postId}")
 
 		public void deleteById (@PathVariable Integer postId){
 
 		    postService.deletePost(postId);
 		}
+		
+		// update post by id
+		@PutMapping("/update/{postId}")
+
+		public ResponseEntity<Post> updatPost(@RequestBody Post post, @PathVariable Integer postId){
+
+			Post updatedPost = postService.updatePost(post, postId);
+
+			return new ResponseEntity<>(updatedPost,HttpStatus.OK);
+		}	
+		
 	
 }
