@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.bloggingapp.demo.entites.User;
 
-@Service
+
 public interface UserService {
    
 	User createUser(User user);

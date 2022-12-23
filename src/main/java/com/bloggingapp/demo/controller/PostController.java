@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bloggingapp.demo.entites.Post;
+import com.bloggingapp.demo.payloads.PostResponce;
 import com.bloggingapp.demo.service.PostService;
 
 @RestController
@@ -69,12 +70,13 @@ public class PostController {
 	// get all post
 	@GetMapping("/getallpost")
 
-	public ResponseEntity<List<Post>> getAllPostById (
-			@RequestParam(value = "pageNumber",defaultValue = "1",required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize",defaultValue ="5",required = false) Integer pageSize
+	public ResponseEntity<PostResponce> getAllPostById (
+			@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize",defaultValue ="10",required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy
 			){
 
-		List<Post> allPost = postService.getAllPost(pageNumber, pageSize);
+		 PostResponce allPost = postService.getAllPost(pageNumber, pageSize, sortBy);
 
 		return new ResponseEntity<>(allPost,HttpStatus.OK);
 	}

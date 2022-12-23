@@ -27,6 +27,11 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","posts"})
 public class User {
     
+//	public User(Integer id) {
+//		super();
+//		this.id = id;
+//	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;

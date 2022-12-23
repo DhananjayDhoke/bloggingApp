@@ -16,6 +16,12 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepo userRepo;
 	
+	
+	public UserServiceImpl(UserRepo userRepo) {
+		super();
+		this.userRepo = userRepo;
+	}
+	
 	@Override
 	public User createUser(User user) {
 	  return userRepo.save(user);
@@ -58,5 +64,7 @@ public class UserServiceImpl implements UserService{
 		
 		return userRepo.findAll();
 	}
+
+
 
 }
