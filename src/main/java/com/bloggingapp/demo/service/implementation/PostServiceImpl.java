@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -66,11 +67,17 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public PostResponce getAllPost(Integer pageNumber,Integer pageSize,String sortBy) {
+	public PostResponce getAllPost(Integer pageNumber,Integer pageSize,String sortBy,String sortDir) {
 	 
+		Sort sort = null;
+		if(sortDir.equalsIgnoreCase("asc")) {
+			sort = Sort.by(sortBy).ascending();
+		}
+		else {
+			sort = Sort.by(sortBy).descending();
+		}
 		
-		
-		Pageable p = PageRequest.of(pageNumber, pageSize);
+		Pageable p = PageRequest.of(pageNumber, pageSize,sort);
 	    
 		Page<Post>  pagePost = postRepo.findAll(p);
 		List<Post> content=pagePost.getContent();
@@ -110,6 +117,13 @@ public class PostServiceImpl implements PostService{
 		Category cat = categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("post not found with cat id "+categoryId));
 		
 		return postRepo.findByCategory(cat);
+	}
+
+	@Override
+	public List<Post> searchPost(String keyword) {
+		
+		List<Post> searchList = postRepo.searchByTitle("%"+keyword+"%");
+		return searchList;
 	}
 
 }

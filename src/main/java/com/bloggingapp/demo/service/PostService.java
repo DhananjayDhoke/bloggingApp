@@ -13,7 +13,7 @@ public interface PostService {
 	
 	void deletePost (Integer postId);
 	
-	PostResponce getAllPost (Integer pageNumber,Integer pageSize, String sortBy);
+	PostResponce getAllPost (Integer pageNumber,Integer pageSize, String sortBy,String sortDir);
 	
 	Post getPostById (Integer postId);
 	
@@ -22,4 +22,8 @@ public interface PostService {
 	
 	// get all post category
 	List<Post> getPostByCategoryId (Integer categoryId);
+	
+	//search post
+	List<Post> searchPost(String keyword);
+	
 }
