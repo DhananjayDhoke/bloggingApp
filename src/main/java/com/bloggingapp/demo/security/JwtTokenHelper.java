@@ -17,7 +17,7 @@ public class JwtTokenHelper {
 
 	public static final long JWT_TOKEN_VALIDITY = 50 * 60 * 60 ;
 
-	private String secret = "jwtTokenKey";
+	private String secret = "jwtTokenKeyjwtTokenKeyjwtTokenKeyjwtTokenKeyjwtTokenKeyjwtTokenKeyjwtTokenKeyjwtTokenKey";
 
 	// retrive username from token
 	public String getUsernameFromToken(String token) {
@@ -37,7 +37,7 @@ public class JwtTokenHelper {
 	private Claims getAllClaimsFromToken(String token) {
 		//		SecretKey key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(AppConstants.SECRET));
 
-		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+		return Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody();
 
 	}
 	// check if the token has expaired 

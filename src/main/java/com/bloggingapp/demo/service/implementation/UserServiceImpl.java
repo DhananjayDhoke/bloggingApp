@@ -2,13 +2,17 @@ package com.bloggingapp.demo.service.implementation;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.bloggingapp.demo.entites.Role;
 import com.bloggingapp.demo.entites.User;
 import com.bloggingapp.demo.exception.ResourceNotFoundException;
+import com.bloggingapp.demo.repositery.RoleRepo;
 import com.bloggingapp.demo.repositery.UserRepo;
 import com.bloggingapp.demo.service.UserService;
 @Service
@@ -17,8 +21,11 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepo userRepo;
 	
-//	@Autowired
-//	private BCryptPasswordEncoder bEncoder;
+	@Autowired
+	private RoleRepo roleRepo;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public UserServiceImpl(UserRepo userRepo) {
 		super();
@@ -26,9 +33,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public User createUser(User user) {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-	  user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));	
+	public User createUser(User user) {	
 	  return userRepo.save(user);
 	}
 
@@ -68,6 +73,19 @@ public class UserServiceImpl implements UserService{
 	public List<User> getallUser() {
 		
 		return userRepo.findAll();
+	}
+
+	@Override
+	public User registerUser(User user) {
+	
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		Role role = roleRepo.findById(2).get();
+		Set<Role> roles = user.getRoles();
+		roles.add(role);
+		user.setRoles(roles);
+		User s = userRepo.save(user);
+		return s;
 	}
 
 

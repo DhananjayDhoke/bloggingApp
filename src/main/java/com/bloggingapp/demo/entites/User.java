@@ -58,7 +58,7 @@ public class User implements UserDetails {
 	private String email;
 	
 	@NotEmpty
-	@Size(min = 3,max=10, message = "password must be within 3 to 10 character")
+	@Size(min = 3,max=100, message = "password must be within 3 to 10 character")
 	private String password;
 	
 	@NotEmpty

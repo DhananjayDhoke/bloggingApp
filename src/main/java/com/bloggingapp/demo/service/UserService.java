@@ -8,7 +8,9 @@ import com.bloggingapp.demo.entites.User;
 
 
 public interface UserService {
-   
+    
+	User registerUser(User user);
+	
 	User createUser(User user);
 	
 	User updateUser(User user);
