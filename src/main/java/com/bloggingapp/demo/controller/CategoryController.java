@@ -37,17 +37,17 @@ public class CategoryController {
 	}
 
 	@PutMapping("/update/{Id}")
-    public ResponseEntity<Category> updateCategoryHandler(@Valid @RequestBody Category category,@PathVariable Integer Id){
+    public ResponseEntity<Category> updateCategoryHandler(@Valid @RequestBody Category category,@PathVariable Integer categoryId){
 
-		Category updatedCategory = categoryService.updateCategory(category, Id);
+		Category updatedCategory = categoryService.updateCategory(category, categoryId);
 
-		return new ResponseEntity<Category>(updatedCategory,HttpStatus.OK);
+		return new ResponseEntity<>(updatedCategory,HttpStatus.OK);
 	}
     
 	@GetMapping("/get/{Id}")
-	public ResponseEntity<Category> getCategeoryHandler (@PathVariable Integer Id){
+	public ResponseEntity<Category> getCategeoryHandler (@PathVariable Integer categoryId){
 
-		Category getCategory = categoryService.getCategory(Id);
+		Category getCategory = categoryService.getCategory(categoryId);
 
 		return new ResponseEntity<>(getCategory,HttpStatus.OK);
 
@@ -63,11 +63,9 @@ public class CategoryController {
 	}
     
 	@DeleteMapping("/delete/{Id}")
-	public void getdeleteCategeoryHandler (@PathVariable Integer Id){
+	public void getdeleteCategeoryHandler (@PathVariable Integer categoryId){
 
-		 categoryService.deleteCategory(Id);
-
-		//return new ResponseEntity<>(deleteCategory,HttpStatus.OK);
+		 categoryService.deleteCategory(categoryId);
 
 	}
 	

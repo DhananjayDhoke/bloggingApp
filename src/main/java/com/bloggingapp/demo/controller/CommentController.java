@@ -25,7 +25,7 @@ public class CommentController {
 	   
 		Comment createdComment = commentService.createComment(comment, postId);
 		
-		return new ResponseEntity<Comment>(createdComment,HttpStatus.OK);
+		return new ResponseEntity<>(createdComment,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{commentId}")

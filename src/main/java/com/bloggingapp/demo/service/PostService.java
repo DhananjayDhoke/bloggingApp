@@ -1,7 +1,6 @@
 package com.bloggingapp.demo.service;
 
 import java.util.List;
-
 import com.bloggingapp.demo.entites.Post;
 import com.bloggingapp.demo.payloads.PostResponce;
 

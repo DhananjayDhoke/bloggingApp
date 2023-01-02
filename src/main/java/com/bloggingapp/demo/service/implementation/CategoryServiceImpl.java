@@ -12,43 +12,41 @@ import com.bloggingapp.demo.service.CategoryService;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
-    
+
 	@Autowired
 	private CategoryRepo categeoryRepo;
-	
+
 	@Override
 	public Category createCategory(Category category) {
 		return categeoryRepo.save(category);
 	}
 
 	@Override
-	public Category getCategory(Integer Id) {
-		return categeoryRepo.findById(Id).orElseThrow(()->new ResourceNotFoundException("Category not found with id " +Id));
+	public Category getCategory(Integer categoryId) {
+		return categeoryRepo.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category not found with id " +categoryId));
 	}
 
 	@Override
-	public Category updateCategory(Category category, Integer Id) {
-		
-		Category cat = categeoryRepo.findById(Id).orElseThrow(()->new ResourceNotFoundException("Category not found with id \" +Id"));
-	    
+	public Category updateCategory(Category category, Integer categoryId) {
+
+		Category cat = categeoryRepo.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category not found with id " +categoryId));
+
 		cat.setCategoryTitle(category.getCategoryTitle());
 		cat.setCategoryDescription(category.getCategoryDescription());
-		
 		return categeoryRepo.save(cat);
 	}
 
 	@Override
-	public void deleteCategory(Integer Id) {
-		
-		Category cat = categeoryRepo.findById(Id).orElseThrow(()->new ResourceNotFoundException("Category not found with id "+Id ));
+	public void deleteCategory(Integer categoryId) {
+
+		Category cat = categeoryRepo.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category not found with id "+categoryId ));
 		categeoryRepo.delete(cat);
-		
-		
+
 	}
 
 	@Override
 	public List<Category> getAllCategeory() {
-	  return categeoryRepo.findAll();
+		return categeoryRepo.findAll();
 	}
 
 }

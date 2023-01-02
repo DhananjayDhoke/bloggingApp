@@ -41,20 +41,6 @@ public class SecurityConfig{
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//	    http.csrf()
-//	      .disable()
-//	      .authorizeHttpRequests()
-//	      .anyRequest()
-//	      .authenticated()
-//	      .and()
-//	      .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//	      .and()
-//	      .sessionManagement()
-//	      .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//	    
-//	    http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//	    return http.build();
 		
 		http
 		.cors()
@@ -66,11 +52,7 @@ public class SecurityConfig{
 		.permitAll()
 	//	.requestMatchers("/v3/api-docs").permitAll()
 		.requestMatchers(HttpMethod.GET).permitAll()
-//		.permitAll()
-//		.requestMatchers(HttpMethod.DELETE, "api/users/{userID}")
-//		.hasAuthority("ADMIN")
 		.anyRequest()
-//		.permitAll()
 		.authenticated()
 		.and()
 		.exceptionHandling()

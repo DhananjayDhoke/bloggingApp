@@ -1,11 +1,7 @@
 package com.bloggingapp.demo.service;
 
 import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.bloggingapp.demo.entites.User;
-
 
 public interface UserService {
     

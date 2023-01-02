@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import com.bloggingapp.demo.entites.Category;
 import com.bloggingapp.demo.entites.Post;
@@ -20,8 +19,6 @@ import com.bloggingapp.demo.repositery.CategoryRepo;
 import com.bloggingapp.demo.repositery.PostRepo;
 import com.bloggingapp.demo.repositery.UserRepo;
 import com.bloggingapp.demo.service.PostService;
-
-import jakarta.validation.Valid;
 
 @Service
 
@@ -122,8 +119,7 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public List<Post> searchPost(String keyword) {
 		
-		List<Post> searchList = postRepo.searchByTitle("%"+keyword+"%");
-		return searchList;
+		return postRepo.searchByTitle("%"+keyword+"%");
 	}
 
 }
