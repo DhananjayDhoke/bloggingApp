@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.bloggingapp.demo.security.CustomUserDetailsService;
 import com.bloggingapp.demo.security.JwtAuthenticationEntryPoint;
@@ -25,6 +26,7 @@ import com.bloggingapp.demo.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig{
     
@@ -62,6 +64,7 @@ public class SecurityConfig{
 		.authorizeHttpRequests()
 		.requestMatchers("/api/v1/auth/**")
 		.permitAll()
+	//	.requestMatchers("/v3/api-docs").permitAll()
 		.requestMatchers(HttpMethod.GET).permitAll()
 //		.permitAll()
 //		.requestMatchers(HttpMethod.DELETE, "api/users/{userID}")

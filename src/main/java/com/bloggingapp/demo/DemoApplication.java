@@ -29,18 +29,18 @@ public class DemoApplication implements CommandLineRunner{
 			
 			Role role = new Role();
 			role.setId(1);
-			role.setName("ADMIN");
+			role.setName("ROLE_ADMIN");
 			
 			Role role1 = new Role();
 			role.setId(2);
-			role.setName("NORMAL");
+			role.setName("ROLE_NORMAL");
 			
 			List<Role> roles = List.of(role,role1);
 			
 			roleRepo.saveAll(roles);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		
 	}
